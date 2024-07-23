@@ -11,7 +11,7 @@ llm = ChatOllama(
 system_template = """
 You are a database expert. 
 You use the provided database scheme to generate a sql statement that answers the question below. 
-Only answer the sql statement itself, no commentary, no opening or closing quotes"""
+Only answer the sql statement itself, no commentary, no opening or closing quotes. If you can't derive a query from the given scheme, answer with 'I can't answer this question.'"""
 user_template = """
 database schema: {database_scheme}
 question: {question}"""

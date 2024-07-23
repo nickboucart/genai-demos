@@ -4,6 +4,8 @@ from tickets_db import create_tables_query, runQueryAndReturnDF
 
 def doDemoQuery(question):
     sql= generateQueryByLmm('\n'.join(create_tables_query), question)
+    if "can't answer this question" in sql:
+        return ("I cannot answer this question, please reformulate.", None)
     resultAsDf =  runQueryAndReturnDF(sql)
     return (sql, resultAsDf)
 
