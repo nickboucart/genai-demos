@@ -44,6 +44,24 @@ with gr.Blocks() as demo:
         getSql = gr.Button(value="Get SQL statement")
         sqlQuery = gr.Code(language="sql")
         getSql.click(generateQuery, inputs=[schema, question], outputs=sqlQuery)
+    with gr.Tab("How this works."):
+        gr.Markdown('''The magic behind this demo is as follows:
+                    
+                    - the question from the user, together with the schema of the database, is used to create a prompt.
+                    - this prompt instucts the large language model to generate a sql statement
+                    - this prompt is sent to the llm, that in turns returns a (hopefully) valid SQL statement
+                    - this sql statement is used to query the database
+                    - results are returned to the user.
+
+                    Schematically, this looks like this:
+                    ![](file/sql-llm-agent.png)
+
+                    Note that only very basic input and output validation is done. Without better guardrails, it is perfectly possible to:
+                    - have this system generate sql statements against tables that are not in the database
+                    - have this system look for Nobel prize winners among the users in the database.
+                    - ...
+
+                    ''')
 
 if __name__ == "__main__":
-    demo.launch(show_api=False)
+    demo.launch(show_api=False, allowed_paths=["/"])
